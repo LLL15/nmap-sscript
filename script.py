@@ -1,8 +1,4 @@
-"""
-TO-DO:
-1. Add more input validation
-2. Add an option for user to view man page of nmap
-"""
+#! /usr/bin/python3
 
 import os
 import re
@@ -12,7 +8,7 @@ ipaddr = re.compile(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$')
 
 def scan(ip, args=''):
     while ipaddr.search(ip) is None:
-        ip = input('Please enter correct IP/IP Range: ')
+        ip = input('Please enter correct IP|IP Range: ')
         if ipaddr.search(ip) is not None:
             break
 
@@ -22,23 +18,37 @@ def scan(ip, args=''):
     return results
 
 
-familiar = input("Are you familiar with Nmap [Yes/No]: ").lower()
+view_help_nmap = input("Do you want to view Nmap help page before scanning [yes|no]: ").lower()
 
-while familiar != 'yes' and familiar != 'no':
-    again = input("Please enter Yes/No: ").lower()
-    if again == 'yes' or again == 'no':
-        familiar = again
-        break
 
-while familiar == 'yes' or familiar == 'no':
-    if familiar == "yes":
+def view_help(userinp):
+    if userinp == 'yes':
+        command = 'nmap --help'
+        process = os.popen(command)
+        print(str(process.read()))
+        quit_or_continue = input("Start scan now [yes|no]: ").lower()
+        if quit_or_continue == 'yes':
+            print('\n')
+            start_scan()
+        else:
+            print("Exiting the script . . .")
+            raise SystemExit
+    elif userinp == 'no':
+        print('\n')
+        start_scan()
+
+
+def start_scan():
+    while 1:
+        print("Performing a scan...")
         print(scan(input("Enter IP address or Range: "), input("Enter arguments (enter for none):")))
-        break
+        scan_again = input("Do you want to keep scanning [yes|no]: ").lower()
+        if scan_again == 'yes':
+            continue
+        elif scan_again == 'no':
+            break
+    print("Exiting the script . . .")
+    raise SystemExit
 
-    elif familiar == "no":
-        view_help = input('Do you want to view help')
-        command2 = "nmap --help"
-        process2 = os.popen(command2)
-        print(str(process2.read()))
-        break
 
+view_help(view_help_nmap)
