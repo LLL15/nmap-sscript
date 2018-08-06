@@ -60,6 +60,9 @@ try:
 
 
     view_help(view_help_nmap)
-except Exception or KeyboardInterrupt:  # Program is stopped if error occurs or user terminates the program
-    print("(!)Unknown error occurred or program was terminated(!)")
+except KeyboardInterrupt:
+    print("\n\nProgram is terminated")
+    print("\nExiting the script...")
+except Exception:  # Program is stopped if error occurs or user terminates the program
+    print("\n\n(!)Unknown error occurred(!)")
     print("\nExiting the script...")
