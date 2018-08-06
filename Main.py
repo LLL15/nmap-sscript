@@ -19,9 +19,6 @@ try:
         return results
 
 
-    view_help_nmap = input("Do you want to view Nmap help page before scanning [Y|N]: ").lower()
-
-
     def view_help(userinp):  # This function allows user to view nmap help page
 
         if userinp == 'yes' or userinp == 'y' or userinp == '':
@@ -58,11 +55,12 @@ try:
         print("Exiting the script . . .")
         raise SystemExit
 
+    view_help_nmap = input("Do you want to view Nmap help page before scanning [Y|N]: ").lower()
 
     view_help(view_help_nmap)
-except KeyboardInterrupt:
+except KeyboardInterrupt: # Program is stopped if user terminates the program
     print("\n\nProgram is terminated")
     print("\nExiting the script...")
-except Exception:  # Program is stopped if error occurs or user terminates the program
+except Exception:  # Program is stopped if error occurs 
     print("\n\n(!)Unknown error occurred(!)")
     print("\nExiting the script...")
