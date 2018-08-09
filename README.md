@@ -1,3 +1,3 @@
-# nmap-sscript
-Short, useful and automated Nmap script for those familiar with Nmap.
+## INPUT VALIDATION
+
 This branch will be used for testing user's input and avoiding any invalid input...
